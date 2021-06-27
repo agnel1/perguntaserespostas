@@ -3,6 +3,7 @@ import { auth, firebase } from "../services/firebase";
 
 export const AuthContext = createContext({} as AuthContextType);
 
+//joga para a aplicação
 type User = {
     id: string;
     name: string;
@@ -22,6 +23,7 @@ export function AuthContextProvider(props: AuthContextProviderProps){
 
     const [user, setUser] = useState<User>()
 
+    // pega o usuario do firebase
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -43,11 +45,13 @@ export function AuthContextProvider(props: AuthContextProviderProps){
   }, [])
 
   async function signInWithGoogle() {
-    //logando o usuario
+    //logando o usuario com o google
     const provider = new firebase.auth.GoogleAuthProvider();
 
+    // o result é o popup que aparece quando clica em login com o google
     const result = await auth.signInWithPopup(provider)
 
+    // pefa as informações de nome, foto e uid do usuario
     if (result.user) {
       const { displayName, photoURL, uid } = result.user
 
