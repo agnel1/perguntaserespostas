@@ -37,6 +37,10 @@ export function Home() {
       alert('essa sala não existe')
       return;
     }
+    if(!roomRef.val().endedAt){
+      alert('Essa sala já foi encerrada')
+      return;
+    }
     history.push(`/rooms/${codeRoom}`)
   }
 
